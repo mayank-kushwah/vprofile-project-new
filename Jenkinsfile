@@ -11,7 +11,7 @@ pipeline {
 		NEXUS_PASS = 'admin'
 		RELEASE_REPO = 'vprofile-release'
 		CENTRAL_REPO = 'vpro-maven-central'
-        // Add Private Ip of Nexus
+        // Add Private Ip of Nexus instance
 		NEXUSIP = '172.31.6.184'
 		NEXUSPORT = '8081'
 		NEXUS_GRP_REPO = 'vpro-maven-group'
