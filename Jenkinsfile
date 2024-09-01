@@ -49,6 +49,7 @@ pipeline {
                 sh 'mvn -s settings.xml checkstyle:checkstyle'
             }
         }
+
         stage('Sonar Analysis') {
             environment {
                 scannerHome = tool "${SONARSCANNER}"
@@ -66,6 +67,7 @@ pipeline {
               }
             }
         }
+
         stage("Quality Gate") {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
@@ -75,6 +77,7 @@ pipeline {
                 }
             }
         }
+
         stage("UploadArtifact"){
             steps{
                 nexusArtifactUploader(
@@ -94,14 +97,14 @@ pipeline {
                 )
             }
         }
-        post {
+
+    }
+    post {
         always {
             echo 'Slack Notifications.'
             slackSend channel: '#jenkinspipeline',
                 color: COLOR_MAP[currentBuild.currentResult],
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
-        }
-
         }
     }
 }
